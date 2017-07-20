@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM produktion/jupyter-openjdk
+FROM makeomaticio/jupyter-openjdk
 
 MAINTAINER Make-O-Matic <hello@make-o-matic.io>
 
