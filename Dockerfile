@@ -15,7 +15,7 @@
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
 FROM makeomaticio/jupyter-openjdk
@@ -24,15 +24,16 @@ MAINTAINER Make-O-Matic <hello@make-o-matic.io>
 
 USER root
 
-ENV APACHE_SPARK_VERSION 2.0.2
+ENV APACHE_SPARK_VERSION 2.2.0
 ENV HADOOP_VERSION 2.7
 
-ADD http://downloads.lightbend.com/scala/2.12.1/scala-2.12.1.deb /tmp
-RUN dpkg -i /tmp/scala-2.12.1.deb
+ADD http://downloads.lightbend.com/scala/2.12.2/scala-2.12.2.deb /tmp
+RUN dpkg -i /tmp/scala-2.12.2.deb
 
-ADD http://d3kbcqa49mib13.cloudfront.net/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz /tmp
+RUN cd /tmp \
+ && wget -q http://d3kbcqa49mib13.cloudfront.net/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
 RUN mkdir /spark \
- && tar -xvzf /tmp/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /spark --strip-components=1
+ && tar -xzf /tmp/spark-${APACHE_SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /spark --strip-components=1
 
 ENV SPARK_HOME /spark
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.3-src.zip
